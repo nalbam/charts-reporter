@@ -21,8 +21,6 @@ get_version() {
     printf '# %-25s %-10s %-10s\n' "${NAME}" "${NOW}" "${NEW}"
 
     if [ "x${NOW}" != "x${NEW}" ]; then
-        CHANGED=true
-
         printf "${NEW}" > ${SHELL_DIR}/versions/${NAME}
 
         # if [ ! -z ${SLACK_TOKEN} ]; then
@@ -32,7 +30,7 @@ get_version() {
 
         if [ ! -z ${GITHUB_TOKEN} ]; then
             git add --all
-            git commit -m "${NAME} ${NEW}"
+            git commit -m "${NAME} ${NEW}" > /dev/null 2>&1 || export CHANGED=true
         fi
     fi
 }
@@ -73,6 +71,9 @@ else
     if [ ! -z ${GITHUB_TOKEN} ]; then
         git remote add --track master nalbam https://github.com/nalbam/${REPONAME}.git
         git pull nalbam master
+
+        git add --all
+        git commit -m "${NAME} ${NEW}" > /dev/null 2>&1 || export CHANGED=true
     fi
 fi
 
