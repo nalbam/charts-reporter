@@ -44,6 +44,7 @@ get_version() {
 
 get_version chartmuseum
 get_version cluster-autoscaler
+get_version consul
 get_version docker-registry
 get_version efs-provisioner
 get_version grafana
