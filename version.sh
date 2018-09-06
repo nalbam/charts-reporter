@@ -21,7 +21,7 @@ get_version() {
     touch ${SHELL_DIR}/versions/${NAME}
 
     NOW=$(cat ${SHELL_DIR}/versions/${NAME} | xargs)
-    NEW=$(helm search "stable/${NAME}" | grep "stable/${NAME}" | head -1 | awk '{print $2}')
+    NEW=$(helm search "stable/${NAME}" | grep "stable/${NAME}" | head -1 | awk '{print $2}' | xargs)
 
     printf '# %-25s %-10s %-10s\n' "${NAME}" "${NOW}" "${NEW}"
 
@@ -31,8 +31,8 @@ get_version() {
         printf "${NEW}" > ${SHELL_DIR}/versions/${NAME}
 
         if [ ! -z ${SLACK_TOKEN} ]; then
-            curl -sL toast.sh/helper/slack.sh | bash -s -- --token='$SLACK_TOKEN' \
-                --color='good' --title='helm chart updated' --footer='$footer' '`${NAME}` `${NEW}`'
+            curl -sL toast.sh/helper/slack.sh | bash -s -- --token="${SLACK_TOKEN}" \
+                --color="good" --title="helm chart updated" "`${NAME}` `${NEW}`"
         fi
 
         if [ ! -z ${GITHUB_TOKEN} ]; then
