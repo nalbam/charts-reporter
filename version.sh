@@ -19,7 +19,7 @@ get_version() {
     touch ${SHELL_DIR}/versions/${NAME}
 
     NOW=$(cat ${SHELL_DIR}/versions/${NAME} | xargs)
-    NEW=$(helm search "stable/${NAME}" | grep "stable/${NAME} " | awk '{print $2}')
+    NEW=$(helm search "stable/${NAME}" | grep "stable/${NAME}" | head -1 | awk '{print $2}')
 
     printf '# %-10s %-10s %-10s\n' "${NAME}" "${NOW}" "${NEW}"
 
