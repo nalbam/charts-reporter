@@ -13,6 +13,14 @@ git config --global user.name "bot"
 git config --global user.email "ops@nalbam.com"
 
 helm init --client-only
+echo
+
+if [ ! -z ${GITHUB_TOKEN} ]; then
+    if [ "${USERNAME}" != "nalbam" ]; then
+        git remote add --track master nalbam https://github.com/nalbam/${REPONAME}.git
+        git pull nalbam master
+    fi
+fi
 
 get_version() {
     NAME=$1
