@@ -47,6 +47,7 @@ get_version cluster-autoscaler
 get_version consul
 get_version docker-registry
 get_version efs-provisioner
+get_version envoy
 get_version grafana
 get_version heapster
 get_version jenkins
