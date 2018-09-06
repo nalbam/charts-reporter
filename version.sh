@@ -52,11 +52,18 @@ get_version grafana
 get_version heapster
 get_version jenkins
 get_version kubernetes-dashboard
+get_version mariadb
 get_version metrics-server
+get_version mongodb
+get_version mysql
 get_version nginx-ingress
+get_version postgresql
 get_version prometheus
+get_version redis
+get_version selenium
 get_version sonarqube
 get_version sonatype-nexus
+get_version spinnaker
 
 if [ ! -z ${CHANGED} ] && [ ! -z ${GITHUB_TOKEN} ]; then
     echo "# git push github.com/${USERNAME}/${REPONAME}"
