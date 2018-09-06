@@ -64,6 +64,7 @@ get_version selenium
 get_version sonarqube
 get_version sonatype-nexus
 get_version spinnaker
+get_version tomcat
 
 if [ ! -z ${CHANGED} ] && [ ! -z ${GITHUB_TOKEN} ]; then
     echo "# git push github.com/${USERNAME}/${REPONAME}"
