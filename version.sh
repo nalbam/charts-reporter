@@ -31,8 +31,7 @@ get_version() {
         printf "${NEW}" > ${SHELL_DIR}/versions/${NAME}
 
         if [ ! -z ${SLACK_TOKEN} ]; then
-            curl -sL toast.sh/helper/slack.sh | bash -s -- --token="${SLACK_TOKEN}" \
-                --color="good" --title="helm chart updated" "`${NAME}` `${NEW}`"
+            curl -sL toast.sh/helper/slack.sh | bash -s -- --token="${SLACK_TOKEN}" --color="good" --title="helm chart updated" ${NAME} ${NEW}
         fi
 
         if [ ! -z ${GITHUB_TOKEN} ]; then
