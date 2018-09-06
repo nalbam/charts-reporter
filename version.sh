@@ -19,6 +19,7 @@ if [ ! -z ${GITHUB_TOKEN} ]; then
     if [ "${USERNAME}" != "nalbam" ]; then
         git remote add --track master nalbam https://github.com/nalbam/${REPONAME}.git
         git pull nalbam master
+        echo
     fi
 fi
 
