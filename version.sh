@@ -5,6 +5,8 @@ SHELL_DIR=$(dirname $0)
 USERNAME=${1:-nalbam}
 REPONAME=${2:-helm-chart-reporter}
 GITHUB_TOKEN=${3}
+SLACK_TOKEN=${4}
+
 CHANGED=
 
 git config --global user.name "bot"
@@ -28,8 +30,15 @@ get_version() {
 
         printf "${NEW}" > ${SHELL_DIR}/versions/${NAME}
 
-        git add --all
-        git commit -m "${NAME} ${NEW}"
+        if [ ! -z ${SLACK_TOKEN} ]; then
+            curl -sL toast.sh/helper/slack.sh | bash -s -- --token='$SLACK_TOKEN' \
+                --color='good' --title='helm chart updated' --footer='$footer' '`${NAME}` `${NEW}`'
+        fi
+
+        if [ ! -z ${GITHUB_TOKEN} ]; then
+            git add --all
+            git commit -m "${NAME} ${NEW}"
+        fi
     fi
 }
 
