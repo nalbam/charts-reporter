@@ -22,8 +22,7 @@ check() {
         printf "${NEW}" > ${SHELL_DIR}/.versions/${NAME}
 
         if [ ! -z ${SLACK_TOKEN} ]; then
-            curl -sL https://toast.sh/helper/slack.sh | bash -s -- --token="${SLACK_TOKEN}" \
-                --color="good" --title="helm chart updated" ${NAME} ${NEW}
+            ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" --color="good" --title="helm chart updated" ${NAME} ${NEW}
         fi
     fi
 }
