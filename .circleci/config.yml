@@ -11,9 +11,11 @@ jobs:
       - run:
           name: Check Versions
           command: ./report.sh $SLACK_TOKEN
+      - store_artifacts:
+          path: .versions
       - save_cache:
           paths:
-            - ./.versions
+            - .versions
           key: v1-versions
 
 workflows:

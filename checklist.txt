@@ -20,7 +20,5 @@ redis
 selenium
 sonarqube
 sonatype-nexus
-spark
 spinnaker
 tomcat
-zeppelin
