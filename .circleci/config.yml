@@ -5,9 +5,16 @@ jobs:
       - image: opspresso/builder
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - v1-versions
       - run:
-          name: Check versions
+          name: Check Versions
           command: ./version.sh $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME "$GITHUB_TOKEN" "$SLACK_TOKEN"
+      - save_cache:
+          paths:
+            - ./.versions
+          key: v1-versions
 
 workflows:
   version: 2

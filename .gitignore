@@ -26,3 +26,6 @@ build/
 .settings/
 .metadata/
 .project
+
+# Cache
+.versions/
