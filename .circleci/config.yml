@@ -7,7 +7,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-versions
+          - v1-versions-${CIRCLE_PREVIOUS_BUILD_NUM}
+          - v1-versions-
       - run:
           name: Check Versions
           command: ./report.sh $SLACK_TOKEN
@@ -16,7 +17,7 @@ jobs:
       - save_cache:
           paths:
             - .versions
-          key: v1-versions
+          key: v1-versions-${CIRCLE_BUILD_NUM}
 
 workflows:
   version: 2
