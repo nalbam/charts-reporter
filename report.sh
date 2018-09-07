@@ -23,6 +23,7 @@ check() {
 
         if [ ! -z ${SLACK_TOKEN} ]; then
             ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" --color="good" --title="helm chart updated" ${NAME} ${NEW}
+            echo " slack ${NAME} ${NEW} "
         fi
     fi
 }
