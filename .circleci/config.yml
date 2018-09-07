@@ -10,7 +10,7 @@ jobs:
           - v1-versions
       - run:
           name: Check Versions
-          command: ./version.sh $SLACK_TOKEN
+          command: ./report.sh $SLACK_TOKEN
       - save_cache:
           paths:
             - ./.versions
