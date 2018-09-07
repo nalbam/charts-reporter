@@ -21,3 +21,4 @@ sonarqube
 sonatype-nexus
 spinnaker
 tomcat
+zeppelin
