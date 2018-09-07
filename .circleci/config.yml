@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  report:
     docker:
       - image: opspresso/builder
     steps:
@@ -10,7 +10,7 @@ jobs:
           - v1-versions
       - run:
           name: Check Versions
-          command: ./version.sh $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME "$GITHUB_TOKEN" "$SLACK_TOKEN"
+          command: ./version.sh $SLACK_TOKEN
       - save_cache:
           paths:
             - ./.versions
@@ -20,10 +20,10 @@ workflows:
   version: 2
   apply:
     jobs:
-      - build
+      - report
   nightly:
     jobs:
-      - build
+      - report
     triggers:
       - schedule:
           cron: "0 0 * * *"
