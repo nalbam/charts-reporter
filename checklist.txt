@@ -7,7 +7,6 @@ envoy
 grafana
 heapster
 jenkins
-kong
 kubernetes-dashboard
 mariadb
 metrics-server
