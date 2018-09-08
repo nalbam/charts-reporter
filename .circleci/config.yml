@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Check Charts Versions
-          command: ./report.sh $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME $GITHUB_TOKEN
+          command: ./report.sh $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME $GITHUB_TOKEN $SLACK_TOKEN
       - store_artifacts:
           path: .versions
       - persist_to_workspace:

@@ -5,6 +5,7 @@ SHELL_DIR=$(dirname $0)
 USERNAME=${1:-nalbam}
 REPONAME=${2:-charts-reporter}
 GITHUB_TOKEN=${3}
+SLACK_TOKEN=${4}
 
 mkdir -p ${SHELL_DIR}/.previous
 mkdir -p ${SHELL_DIR}/.versions
