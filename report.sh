@@ -31,6 +31,7 @@ check() {
     fi
 }
 
+# git pull
 if [ "${USERNAME}" != "nalbam" ]; then
     if [ ! -z ${GITHUB_TOKEN} ]; then
         git config --global user.name "bot"
@@ -51,7 +52,6 @@ fi
 VERSION=$(curl -s https://api.github.com/repos/${USERNAME}/${REPONAME}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
 if [ ! -z ${VERSION} ]; then
     curl -sL https://github.com/${USERNAME}/${REPONAME}/releases/download/${VERSION}/versions.tar.gz | tar xz -C ${SHELL_DIR}/.previous
-    # ls -al ${SHELL_DIR}/.previous
     echo
 fi
 
