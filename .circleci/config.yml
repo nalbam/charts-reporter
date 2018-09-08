@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Check Versions
+          name: Check Charts Versions
           command: ./report.sh $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME $GITHUB_TOKEN
       - store_artifacts:
           path: .versions
