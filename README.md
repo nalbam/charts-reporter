@@ -1,1 +1,1 @@
-# helm-chart-reporter
+# charts-reporter
