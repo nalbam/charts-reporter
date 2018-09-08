@@ -58,7 +58,7 @@ fi
 
 VERSION=$(echo ${VERSION:-v0.0.0} | perl -pe 's/^(([v\d]+\.)*)(\d+)(.*)$/$1.($3+1).$4/e')
 printf "${VERSION}" > target/VERSION
-cat target/VERSION
+echo ${VERSION}
 echo
 
 # helm init
