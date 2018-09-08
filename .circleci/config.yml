@@ -33,6 +33,9 @@ workflows:
   apply:
     jobs:
       - report
+      - release:
+          requires:
+            - report
   nightly:
     jobs:
       - report
