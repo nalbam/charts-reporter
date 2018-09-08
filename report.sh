@@ -2,11 +2,9 @@
 
 SHELL_DIR=$(dirname $0)
 
-SLACK_TOKEN=${1}
-
-CHANGED=
-
-mkdir -p ${SHELL_DIR}/.versions
+USERNAME=${1:-nalbam}
+REPONAME=${2:-charts-reporter}
+GITHUB_TOKEN=${3}
 
 check() {
     NAME=$1
@@ -27,6 +25,24 @@ check() {
         fi
     fi
 }
+
+if [ "${USERNAME}" != "nalbam" ]; then
+    if [ ! -z ${GITHUB_TOKEN} ]; then
+        git config --global user.name "bot"
+        git config --global user.email "ops@nalbam.com"
+
+        echo "# git remote add --track master nalbam github.com/nalbam/charts-reporter"
+        git remote add --track master nalbam https://github.com/nalbam/charts-reporter.git
+
+        echo "# git pull nalbam master"
+        git pull nalbam master
+
+        echo "# git push github.com/${USERNAME}/${REPONAME} master"
+        git push -q https://${GITHUB_TOKEN}@github.com/${USERNAME}/${REPONAME}.git master
+    fi
+fi
+
+mkdir -p ${SHELL_DIR}/.versions
 
 helm init --client-only
 echo

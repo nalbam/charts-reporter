@@ -11,7 +11,7 @@ jobs:
           - v1-versions-
       - run:
           name: Check Versions
-          command: ./report.sh $SLACK_TOKEN
+          command: ./report.sh $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME $GITHUB_TOKEN
       - store_artifacts:
           path: .versions
       - save_cache:
