@@ -14,16 +14,15 @@ check() {
     NAME=$1
 
     touch ${SHELL_DIR}/.previous/${NAME}
-    touch ${SHELL_DIR}/.versions/${NAME}
 
     NOW=$(cat ${SHELL_DIR}/.previous/${NAME} | xargs)
     NEW=$(helm search "stable/${NAME}" | grep "stable/${NAME}" | head -1 | awk '{print $2}' | xargs)
 
     printf '# %-25s %-10s %-10s\n' "${NAME}" "${NOW}" "${NEW}"
 
-    if [ "x${NOW}" != "x${NEW}" ]; then
-        printf "${NEW}" > ${SHELL_DIR}/.versions/${NAME}
+    printf "${NEW}" > ${SHELL_DIR}/.versions/${NAME}
 
+    if [ "x${NOW}" != "x${NEW}" ]; then
         if [ ! -z ${SLACK_TOKEN} ]; then
             ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" --color="good" --title="helm chart updated" "${NAME} ${NOW} > ${NEW}"
             echo " slack ${NAME} ${NOW} > ${NEW} "
