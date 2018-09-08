@@ -40,12 +40,15 @@ if [ "${USERNAME}" != "nalbam" ]; then
 
         echo "# git remote add --track master nalbam github.com/nalbam/charts-reporter"
         git remote add --track master nalbam https://github.com/nalbam/charts-reporter.git
+        echo
 
         echo "# git pull nalbam master"
         git pull nalbam master
+        echo
 
         echo "# git push github.com/${USERNAME}/${REPONAME} master"
         git push -q https://${GITHUB_TOKEN}@github.com/${USERNAME}/${REPONAME}.git master
+        echo
     fi
 fi
 
