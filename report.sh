@@ -72,7 +72,8 @@ popd
 echo
 
 # release version
-VERSION=$(echo ${VERSION:-v0.0.0} | perl -pe 's/^(([v\d]+\.)*)(\d+)(.*)$/$1.($3+1).$4/e')
+# VERSION=$(echo ${VERSION:-v0.0.0} | perl -pe 's/^(([v\d]+\.)*)(\d+)(.*)$/$1.($3+1).$4/e')
+VERSION=latest
 printf "${VERSION}" > target/VERSION
 echo ${VERSION}
 echo
