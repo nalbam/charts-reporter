@@ -27,6 +27,7 @@ check() {
         if [ ! -z ${SLACK_TOKEN} ]; then
             ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" --color="good" --title="helm chart updated" "${NAME} ${NOW} > ${NEW}"
             echo " slack ${NAME} ${NOW} > ${NEW} "
+            echo
         fi
     fi
 }
@@ -48,9 +49,9 @@ if [ "${USERNAME}" != "nalbam" ]; then
 fi
 
 # previous versions
-VERSION=$(curl -s https://api.github.com/repos/${REPO}/${NAME}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
+VERSION=$(curl -s https://api.github.com/repos/${USERNAME}/${REPONAME}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
 if [ ! -z ${VERSION} ]; then
-    curl -sL https://github.com/${REPO}/${NAME}/releases/download/${VERSION}/versions.tar.gz | tar xz -C ${SHELL_DIR}/.previous
+    curl -sL https://github.com/${USERNAME}/${REPONAME}/releases/download/${VERSION}/versions.tar.gz | tar xz -C ${SHELL_DIR}/.previous
     ls -al ${SHELL_DIR}/.previous
     echo
 fi
