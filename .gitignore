@@ -28,4 +28,5 @@ build/
 .project
 
 # Cache
+.previous/
 .versions/

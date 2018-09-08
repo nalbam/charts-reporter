@@ -6,12 +6,17 @@ USERNAME=${1:-nalbam}
 REPONAME=${2:-charts-reporter}
 GITHUB_TOKEN=${3}
 
+mkdir -p ${SHELL_DIR}/.previous
+mkdir -p ${SHELL_DIR}/.versions
+mkdir -p ${SHELL_DIR}/.target
+
 check() {
     NAME=$1
 
+    touch ${SHELL_DIR}/.previous/${NAME}
     touch ${SHELL_DIR}/.versions/${NAME}
 
-    NOW=$(cat ${SHELL_DIR}/.versions/${NAME} | xargs)
+    NOW=$(cat ${SHELL_DIR}/.previous/${NAME} | xargs)
     NEW=$(helm search "stable/${NAME}" | grep "stable/${NAME}" | head -1 | awk '{print $2}' | xargs)
 
     printf '# %-25s %-10s %-10s\n' "${NAME}" "${NOW}" "${NEW}"
@@ -42,11 +47,25 @@ if [ "${USERNAME}" != "nalbam" ]; then
     fi
 fi
 
-mkdir -p ${SHELL_DIR}/.versions
+# previous versions
+VERSION=$(curl -s https://api.github.com/repos/${REPO}/${NAME}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
+if [ ! -z ${VERSION} ]; then
+    curl -sL https://github.com/${REPO}/${NAME}/releases/download/${VERSION}/versions.tar.gz | tar xz -C ${SHELL_DIR}/.previous
+fi
 
+VERSION=$(echo ${VERSION:-v0.0.0} | perl -pe 's/^(([v\d]+\.)*)(\d+)(.*)$/$1.($3+1).$4/e')
+printf "${VERSION}" > target/VERSION
+
+# helm init
 helm init --client-only
 echo
 
+# check versions
 while read VAR; do
     check ${VAR}
 done < ${SHELL_DIR}/checklist.txt
+
+# package versions
+pushd .versions
+tar -czf ../target/versions.tar.gz *
+popd
