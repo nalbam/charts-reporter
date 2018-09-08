@@ -51,10 +51,14 @@ fi
 VERSION=$(curl -s https://api.github.com/repos/${REPO}/${NAME}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
 if [ ! -z ${VERSION} ]; then
     curl -sL https://github.com/${REPO}/${NAME}/releases/download/${VERSION}/versions.tar.gz | tar xz -C ${SHELL_DIR}/.previous
+    ls -al ${SHELL_DIR}/.previous
+    echo
 fi
 
 VERSION=$(echo ${VERSION:-v0.0.0} | perl -pe 's/^(([v\d]+\.)*)(\d+)(.*)$/$1.($3+1).$4/e')
 printf "${VERSION}" > target/VERSION
+cat target/VERSION
+echo
 
 # helm init
 helm init --client-only
