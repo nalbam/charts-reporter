@@ -8,7 +8,7 @@ GITHUB_TOKEN=${3}
 
 mkdir -p ${SHELL_DIR}/.previous
 mkdir -p ${SHELL_DIR}/.versions
-mkdir -p ${SHELL_DIR}/.target
+mkdir -p ${SHELL_DIR}/target
 
 check() {
     NAME=$1
