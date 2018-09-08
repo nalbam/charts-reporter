@@ -21,4 +21,3 @@ selenium
 sonarqube
 sonatype-nexus
 spinnaker
-tomcat
