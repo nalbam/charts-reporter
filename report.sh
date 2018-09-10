@@ -29,8 +29,6 @@ check() {
             echo " slack ${NAME} ${NOW} > ${NEW} "
         fi
     fi
-
-    echo
 }
 
 # git pull
