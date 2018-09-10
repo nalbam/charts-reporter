@@ -65,6 +65,7 @@ echo
 while read VAR; do
     check ${VAR}
 done < ${SHELL_DIR}/checklist.txt
+echo
 
 # package versions
 pushd .versions
