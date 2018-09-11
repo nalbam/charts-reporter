@@ -31,25 +31,25 @@ check() {
     fi
 }
 
-# git pull
-if [ "${USERNAME}" != "nalbam" ]; then
-    if [ ! -z ${GITHUB_TOKEN} ]; then
-        git config --global user.name "bot"
-        git config --global user.email "ops@nalbam.com"
+# # git pull
+# if [ "${USERNAME}" != "nalbam" ]; then
+#     if [ ! -z ${GITHUB_TOKEN} ]; then
+#         git config --global user.name "bot"
+#         git config --global user.email "ops@nalbam.com"
 
-        echo "# git remote add --track master nalbam github.com/nalbam/charts-reporter"
-        git remote add --track master nalbam https://github.com/nalbam/charts-reporter.git
-        echo
+#         echo "# git remote add --track master nalbam github.com/nalbam/charts-reporter"
+#         git remote add --track master nalbam https://github.com/nalbam/charts-reporter.git
+#         echo
 
-        echo "# git pull nalbam master"
-        git pull nalbam master
-        echo
+#         echo "# git pull nalbam master"
+#         git pull nalbam master
+#         echo
 
-        echo "# git push github.com/${USERNAME}/${REPONAME} master"
-        git push -q https://${GITHUB_TOKEN}@github.com/${USERNAME}/${REPONAME}.git master
-        echo
-    fi
-fi
+#         echo "# git push github.com/${USERNAME}/${REPONAME} master"
+#         git push -q https://${GITHUB_TOKEN}@github.com/${USERNAME}/${REPONAME}.git master
+#         echo
+#     fi
+# fi
 
 # previous versions
 VERSION=$(curl -s https://api.github.com/repos/${USERNAME}/${REPONAME}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
