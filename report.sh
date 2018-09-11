@@ -27,6 +27,7 @@ check() {
         if [ ! -z ${SLACK_TOKEN} ]; then
             ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" --color="good" --title="helm chart updated" "${NAME} ${NOW} > ${NEW}"
             echo " slack ${NAME} ${NOW} > ${NEW} "
+            echo
         fi
     fi
 }
@@ -35,7 +36,7 @@ check() {
 # if [ "${USERNAME}" != "nalbam" ]; then
 #     if [ ! -z ${GITHUB_TOKEN} ]; then
 #         git config --global user.name "bot"
-#         git config --global user.email "ops@nalbam.com"
+#         git config --global user.email "bot@nalbam.com"
 
 #         echo "# git remote add --track master nalbam github.com/nalbam/charts-reporter"
 #         git remote add --track master nalbam https://github.com/nalbam/charts-reporter.git
