@@ -4,8 +4,7 @@ SHELL_DIR=$(dirname $0)
 
 USERNAME=${1:-nalbam}
 REPONAME=${2:-charts-reporter}
-GITHUB_TOKEN=${3}
-SLACK_TOKEN=${4}
+SLACK_TOKEN=${3}
 
 mkdir -p ${SHELL_DIR}/.previous
 mkdir -p ${SHELL_DIR}/.versions
@@ -23,7 +22,7 @@ check() {
 
     printf "${NEW}" > ${SHELL_DIR}/.versions/${NAME}
 
-    if [ "x${NOW}" != "x${NEW}" ]; then
+    if [ ! -z ${NOW} ] && [ "x${NOW}" != "x${NEW}" ]; then
         if [ ! -z ${SLACK_TOKEN} ]; then
             ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" --color="good" --title="helm chart updated" "${NAME} ${NOW} > ${NEW}"
             echo " slack ${NAME} ${NOW} > ${NEW} "
@@ -31,26 +30,6 @@ check() {
         fi
     fi
 }
-
-# # git pull
-# if [ "${USERNAME}" != "nalbam" ]; then
-#     if [ ! -z ${GITHUB_TOKEN} ]; then
-#         git config --global user.name "bot"
-#         git config --global user.email "bot@nalbam.com"
-
-#         echo "# git remote add --track master nalbam github.com/nalbam/charts-reporter"
-#         git remote add --track master nalbam https://github.com/nalbam/charts-reporter.git
-#         echo
-
-#         echo "# git pull nalbam master"
-#         git pull nalbam master
-#         echo
-
-#         echo "# git push github.com/${USERNAME}/${REPONAME} master"
-#         git push -q https://${GITHUB_TOKEN}@github.com/${USERNAME}/${REPONAME}.git master
-#         echo
-#     fi
-# fi
 
 # previous versions
 VERSION=$(curl -s https://api.github.com/repos/${USERNAME}/${REPONAME}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
