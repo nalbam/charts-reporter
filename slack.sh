@@ -15,12 +15,12 @@ usage() {
     echo "   webhook_url|url  Send your JSON payloads to this URL."
     echo "   channel          Channel, private group, or IM channel to send message to."
     echo "   username         Set your bot's user name."
-    echo "   icon_emoji       Emoji to use as the icon for this message."
+    echo "   emoji            Emoji to use as the icon for this message."
     echo " "
     echo " Attachments Arguments: "
     echo "   color            Like traffic signals. [good, warning, danger, or hex code (eg. #439FE0)]."
     echo "   title            The title is displayed as larger, bold text near the top of a message attachment."
-    echo "   image_url        A valid URL to an image file that will be displayed inside a message attachment."
+    echo "   image            A valid URL to an image file that will be displayed inside a message attachment."
     echo "   footer           Add some brief text to help contextualize and identify an attachment."
     echo "================================================================================"
     exit 1
@@ -44,7 +44,7 @@ for v in "$@"; do
         channel="${v#*=}"
         shift
         ;;
-    --icon_emoji=*)
+    --emoji=*|--icon_emoji=*)
         icon_emoji="${v#*=}"
         shift
         ;;
@@ -60,7 +60,7 @@ for v in "$@"; do
         title="${v#*=}"
         shift
         ;;
-    --image_url=*)
+    --image=*|--image_url=*)
         image_url="${v#*=}"
         shift
         ;;
