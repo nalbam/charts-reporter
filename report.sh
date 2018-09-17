@@ -55,23 +55,7 @@ popd
 echo
 
 # release version
-if [ -z ${VERSION} ]; then
-    VERSION=$(cat ./VERSION | xargs)
-else
-    MAJOR=$(cat ./VERSION | xargs | cut -d'.' -f1)
-    MINOR=$(cat ./VERSION | xargs | cut -d'.' -f2)
-
-    LATEST_MAJOR=$(echo ${VERSION} | cut -d'.' -f1)
-    LATEST_MINOR=$(echo ${VERSION} | cut -d'.' -f2)
-
-    if [ "${MAJOR}" != "${LATEST_MAJOR}" ] || [ "${MINOR}" != "${LATEST_MINOR}" ]; then
-        VERSION=$(cat ./VERSION | xargs)
-    fi
-
-    # add
-    VERSION=$(echo ${VERSION} | perl -pe 's/^(([v\d]+\.)*)(\d+)(.*)$/$1.($3+1).$4/e')
-fi
-
+VERSION="latest"
 printf "${VERSION}" > target/VERSION
 echo "VERSION=${VERSION}"
 echo
