@@ -25,7 +25,6 @@ jobs:
           name: Release
           command: |
             VERSION=$(cat workspace/target/VERSION)
-            echo ${VERSION}
             go get github.com/tcnksm/ghr
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} workspace/target/
 
