@@ -58,4 +58,3 @@ echo
 VERSION="latest"
 printf "${VERSION}" > target/VERSION
 echo "VERSION=${VERSION}"
-echo
