@@ -17,9 +17,9 @@ check() {
     touch ${SHELL_DIR}/.previous/${NAME}
 
     NOW=$(cat ${SHELL_DIR}/.previous/${NAME} | xargs)
-    NEW=$(helm search "stable/${NAME}" | grep "stable/${NAME}" | head -1 | awk '{print $2}' | xargs)
+    NEW=$(helm search "stable/${NAME}" | grep "stable/${NAME}" | head -1 | awk '{print $2" ("$3")"}' | xargs)
 
-    printf '# %-25s %-10s %-10s\n' "${NAME}" "${NOW}" "${NEW}"
+    printf '# %-25s %-15s %-15s\n' "${NAME}" "${NOW}" "${NEW}"
 
     printf "${NEW}" > ${SHELL_DIR}/.versions/${NAME}
 
