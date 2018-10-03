@@ -55,8 +55,3 @@ pushd .versions
 tar -czf ../target/versions.tar.gz *
 popd
 echo
-
-# release version
-VERSION="latest"
-printf "${VERSION}" > target/VERSION
-echo "VERSION=${VERSION}"

@@ -3,16 +3,14 @@ jobs:
   report:
     docker:
       - image: opspresso/builder
-    working_directory: /tmp/workspace
+    working_directory: /tmp/works
     steps:
       - checkout
       - run:
           name: Check Charts Versions
           command: ./report.sh $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME $SLACK_TOKEN
-      - store_artifacts:
-          path: .versions
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: /tmp/works
           paths:
             - target/*
   release:
@@ -20,13 +18,13 @@ jobs:
       - image: circleci/golang
     steps:
       - attach_workspace:
-          at: workspace
+          at: works
       - run:
           name: Release
           command: |
-            VERSION=$(cat workspace/target/VERSION)
+            VERSION=latest
             go get github.com/tcnksm/ghr
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} workspace/target/
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} works/target/
 
 workflows:
   version: 2
