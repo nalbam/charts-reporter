@@ -15,10 +15,7 @@ mysql
 nginx-ingress
 postgresql
 prometheus
-rabbitmq
 redis
-selenium
 sonarqube
 sonatype-nexus
 spinnaker
-tomcat
