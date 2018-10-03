@@ -18,7 +18,7 @@ check() {
     NOW="$(cat ${SHELL_DIR}/.previous/${NAME} | xargs)"
     NEW="$(helm search "stable/${NAME}" | grep "stable/${NAME}" | head -1 | awk '{print $2" ("$3")"}' | xargs)"
 
-    printf '# %-25s %-15s %-15s\n' "${NAME}" "${NOW}" "${NEW}"
+    printf '# %-25s %-20s %-20s\n' "${NAME}" "${NOW}" "${NEW}"
 
     printf "${NEW}" > ${SHELL_DIR}/.versions/${NAME}
 
