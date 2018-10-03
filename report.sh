@@ -54,4 +54,3 @@ echo
 pushd .versions
 tar -czf ../target/versions.tar.gz *
 popd
-echo
