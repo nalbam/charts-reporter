@@ -25,7 +25,8 @@ check() {
 
     if [ "${NOW}" != "${NEW}" ]; then
         if [ ! -z ${SLACK_TOKEN} ]; then
-            ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" --emoji=":construction_worker:" \
+            ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" \
+                --emoji=":construction_worker:" --username="charts-reporter" \
                 --color="good" --title="helm-chart updated" "\`${NAME}\` ${NOW} > ${NEW}"
             echo " slack ${NAME} ${NOW} > ${NEW} "
             echo
