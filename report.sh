@@ -4,7 +4,6 @@ SHELL_DIR=$(dirname $0)
 
 USERNAME=${1:-nalbam}
 REPONAME=${2:-charts-reporter}
-SLACK_TOKEN=${3}
 
 rm -rf target
 mkdir -p ${SHELL_DIR}/target

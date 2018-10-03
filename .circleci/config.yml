@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Check Charts
-          command: ./report.sh $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME $SLACK_TOKEN
+          command: ./report.sh $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME
       - persist_to_workspace:
           root: /tmp/works
           paths:
