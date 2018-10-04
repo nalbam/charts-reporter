@@ -19,3 +19,4 @@ redis
 sonarqube
 sonatype-nexus
 spinnaker
+tomcat
