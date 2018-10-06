@@ -27,7 +27,7 @@ check() {
             FOOTER="<https://github.com/helm/charts/tree/master/stable/${NAME}|stable/${NAME}>"
             ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" \
                 --emoji=":construction_worker:" --username="charts-reporter" \
-                --footer="${FOOTER}" --footer_icon="https://toast.sh/static/helm.ico" \
+                --footer="${FOOTER}" --footer_icon="https://toast.sh/static/helm.png" \
                 --color="good" --title="helm-chart updated" "\`${NAME}\` ${NOW} > ${NEW}"
             echo " slack ${NAME} ${NOW} > ${NEW} "
             echo
