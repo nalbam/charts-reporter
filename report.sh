@@ -25,7 +25,7 @@ check() {
     if [ "${NOW}" != "${NEW}" ]; then
         if [ ! -z ${SLACK_TOKEN} ]; then
             FOOTER="<https://github.com/helm/charts/tree/master/stable/${NAME}|stable/${NAME}>"
-            ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" \
+            ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" --channel="helm-charts" \
                 --emoji=":construction_worker:" --username="charts-reporter" \
                 --footer="${FOOTER}" --footer_icon="https://www.helm.sh/assets/images/favicon.png" \
                 --color="good" --title="helm-chart updated" "\`${NAME}\` ${NOW} > ${NEW}"
