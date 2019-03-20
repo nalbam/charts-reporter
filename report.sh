@@ -2,8 +2,8 @@
 
 SHELL_DIR=$(dirname $0)
 
-USERNAME=${1:-nalbam}
-REPONAME=${2:-charts-reporter}
+USERNAME=${CIRCLE_PROJECT_USERNAME:-nalbam}
+REPONAME=${CIRCLE_PROJECT_REPONAME:-charts-reporter}
 
 rm -rf target
 mkdir -p ${SHELL_DIR}/target
@@ -22,17 +22,23 @@ check() {
 
     printf "${NEW}" > ${SHELL_DIR}/.versions/${NAME}
 
-    if [ "${NOW}" != "${NEW}" ]; then
-        if [ ! -z ${SLACK_TOKEN} ]; then
-            FOOTER="<https://github.com/helm/charts/tree/master/stable/${NAME}|stable/${NAME}>"
-            ${SHELL_DIR}/slack.sh --token="${SLACK_TOKEN}" --channel="tools" \
-                --emoji=":construction_worker:" --username="charts-reporter" \
-                --footer="${FOOTER}" --footer_icon="https://www.helm.sh/assets/images/favicon.png" \
-                --color="good" --title="helm-chart updated" "\`${NAME}\` ${NOW} > ${NEW}"
-            echo " slack ${NAME} ${NOW} > ${NEW} "
-            echo
-        fi
+    if [ "${NOW}" == "${NEW}" ]; then
+        return
     fi
+
+    if [ -z ${SLACK_TOKEN} ]; then
+        return
+    fi
+
+    FOOTER="<https://github.com/helm/charts/tree/master/stable/${NAME}|stable/${NAME}>"
+
+    curl -sL opspresso.com/tools/slack | bash -s -- \
+        --token="${SLACK_TOKEN}" --emoji=":construction_worker:" --username="${REPONAME}" \
+        --footer="${FOOTER}" --footer_icon="https://repo.opspresso.com/favicon/helm-152.png" \
+        --color="good" --title="helm-chart updated" "\`${NAME}\` ${NOW} > ${NEW}"
+
+    echo " slack ${NAME} ${NOW} > ${NEW} "
+    echo
 }
 
 # previous versions
