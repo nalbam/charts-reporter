@@ -5,7 +5,7 @@ SHELL_DIR=$(dirname $0)
 USERNAME=${CIRCLE_PROJECT_USERNAME:-nalbam}
 REPONAME=${CIRCLE_PROJECT_REPONAME:-charts-reporter}
 
-rm -rf target
+rm -rf ${SHELL_DIR}/target
 mkdir -p ${SHELL_DIR}/target
 mkdir -p ${SHELL_DIR}/.previous
 mkdir -p ${SHELL_DIR}/.versions
