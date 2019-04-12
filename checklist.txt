@@ -13,6 +13,7 @@ heapster
 jenkins
 kubernetes-dashboard
 metrics-server
+newrelic-infrastructure
 nginx-ingress
 prometheus
 redis
