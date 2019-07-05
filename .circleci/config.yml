@@ -9,8 +9,7 @@ jobs:
       - run:
           name: Check Charts
           command: |
-            chmod 755 ./report.sh
-            ./report.sh
+            bash ./report.sh
       - persist_to_workspace:
           root: /tmp/works
           paths:
