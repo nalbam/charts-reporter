@@ -75,8 +75,8 @@ check() {
         --username="${REPONAME}" \
         --footer="${footer}" \
         --footer_icon="https://repo.opspresso.com/favicon/helm-152.png" \
-        --color="good"
-        --title="helm-chart updated"
+        --color="good" \
+        --title="helm-chart updated" \
         "\`${CHART}\` ${NOW} > ${NEW}"
 
     echo " slack ${CHART} ${NOW} > ${NEW} "
