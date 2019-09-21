@@ -2,48 +2,91 @@
 
 SHELL_DIR=$(dirname $0)
 
-USERNAME=${CIRCLE_PROJECT_USERNAME:-nalbam}
-REPONAME=${CIRCLE_PROJECT_REPONAME:-charts-reporter}
+DEFAULT="nalbam/charts-reporter"
+REPOSITORY=${GITHUB_REPOSITORY:-$DEFAULT}
+
+USERNAME=${GITHUB_ACTOR}
+REPONAME=$(echo "${REPOSITORY}" | cut -d'/' -f2)
 
 rm -rf ${SHELL_DIR}/target
-mkdir -p ${SHELL_DIR}/target
-mkdir -p ${SHELL_DIR}/.previous
-mkdir -p ${SHELL_DIR}/.versions
+
+mkdir -p ${SHELL_DIR}/target/previous
+mkdir -p ${SHELL_DIR}/target/versions
+mkdir -p ${SHELL_DIR}/target/release
+
+helm_repo() {
+    REPO=$1
+
+    if [ "${REPO}" == "incubator" ]; then
+        REPO_URL="https://storage.googleapis.com/kubernetes-charts-incubator"
+    elif [ "${REPO}" == "argo" ]; then
+        REPO_URL="https://argoproj.github.io/argo-helm"
+    elif [ "${REPO}" == "jetstack" ]; then
+        REPO_URL="https://charts.jetstack.io"
+    elif [ "${REPO}" == "monocular" ]; then
+        REPO_URL="https://helm.github.io/monocular"
+    else
+        REPO_URL=""
+    fi
+
+    if [ "${REPO_URL}" != "" ]; then
+        COUNT=$(helm repo list | grep -v NAME | awk '{print $1}' | grep "${REPO}" | wc -l | xargs)
+
+        if [ "x${COUNT}" == "x0" ]; then
+            helm repo add ${REPO} ${REPO_URL}
+            helm repo update
+        fi
+    fi
+}
 
 check() {
-    NAME=$1
+    CHART="$1"
 
-    touch ${SHELL_DIR}/.previous/${NAME}
+    REPO="$(echo $CHART | cut -d'/' -f1)"
+    NAME="$(echo $CHART | cut -d'/' -f2)"
 
-    NOW="$(cat ${SHELL_DIR}/.previous/${NAME} | xargs)"
-    NEW="$(helm search "stable/${NAME}" | grep "stable/${NAME}" | head -1 | awk '{print $2" ("$3")"}' | xargs)"
+    helm_repo "${REPO}"
 
-    printf '# %-25s %-25s %-25s\n' "${NAME}" "${NOW}" "${NEW}"
+    touch ${SHELL_DIR}/target/previous/${NAME}
+    NOW="$(cat ${SHELL_DIR}/target/previous/${NAME} | xargs)"
 
-    printf "${NEW}" > ${SHELL_DIR}/.versions/${NAME}
+    NEW="$(helm search "${CHART}" | grep "${CHART}" | head -1 | awk '{print $2" ("$3")"}' | xargs)"
+
+    printf '# %-40s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
+
+    printf "${NEW}" > ${SHELL_DIR}/target/versions/${NAME}
 
     if [ "${NOW}" == "${NEW}" ]; then
         return
     fi
 
-    if [ -z ${SLACK_TOKEN} ]; then
+    if [ -z "${SLACK_TOKEN}" ]; then
         return
     fi
 
-    curl -sL opspresso.com/tools/slack | bash -s -- \
-        --token="${SLACK_TOKEN}" --username="${REPONAME}" \
-        --footer="<https://github.com/helm/charts/tree/master/stable/${NAME}|stable/${NAME}>" \
-        --footer_icon="https://repo.opspresso.com/favicon/helm-152.png" \
-        --color="good" --title="helm-chart updated" "\`${NAME}\` ${NOW} > ${NEW}"
+    if [ "${REPO}" == "stable" ] || [ "${REPO}" == "incubator" ]; then
+        footer="<https://github.com/helm/charts/tree/master/${CHART}|${CHART}>"
+    else
+        footer="${CHART}"
+    fi
 
-    echo " slack ${NAME} ${NOW} > ${NEW} "
+    curl -sL opspresso.com/tools/slack | bash -s -- \
+        --token="${SLACK_TOKEN}" \
+        --username="${REPONAME}" \
+        --footer="${footer}" \
+        --footer_icon="https://repo.opspresso.com/favicon/helm-152.png" \
+        --color="good"
+        --title="helm-chart updated"
+        "\`${CHART}\` ${NOW} > ${NEW}"
+
+    echo " slack ${CHART} ${NOW} > ${NEW} "
     echo
 }
 
 # previous versions
-VERSION=$(curl -s https://api.github.com/repos/${USERNAME}/${REPONAME}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
-if [ ! -z ${VERSION} ]; then
-    curl -sL https://github.com/${USERNAME}/${REPONAME}/releases/download/${VERSION}/versions.tar.gz | tar xz -C ${SHELL_DIR}/.previous
+VERSION=$(curl -s https://api.github.com/repos/${REPOSITORY}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
+if [ ! -z "${VERSION}" ]; then
+    curl -sL https://github.com/${REPOSITORY}/releases/download/${VERSION}/versions.tar.gz | tar xz -C ${SHELL_DIR}/target/previous
 fi
 
 # helm init
@@ -57,6 +100,6 @@ done < ${SHELL_DIR}/checklist.txt
 echo
 
 # package versions
-pushd .versions
-tar -czf ../target/versions.tar.gz *
+pushd ${SHELL_DIR}/target/versions
+tar -czf ../release/versions.tar.gz *
 popd
