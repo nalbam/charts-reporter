@@ -15,11 +15,13 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Check Version
+      - name: Uses Container
         uses: opspresso/action-kube@master
+
+      - name: Report
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-      - run: |
+        run: |
           bash ./report.sh
 
       - name: Release
