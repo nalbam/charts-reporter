@@ -14,7 +14,7 @@ mkdir -p ${SHELL_DIR}/target/previous
 mkdir -p ${SHELL_DIR}/target/versions
 mkdir -p ${SHELL_DIR}/target/release
 
-helm_repo() {
+_helm_repo() {
     REPO=$1
 
     if [ "${REPO}" == "incubator" ]; then
@@ -39,13 +39,13 @@ helm_repo() {
     fi
 }
 
-check() {
+_check() {
     CHART="$1"
 
     REPO="$(echo $CHART | cut -d'/' -f1)"
     NAME="$(echo $CHART | cut -d'/' -f2)"
 
-    helm_repo "${REPO}"
+    _helm_repo "${REPO}"
 
     touch ${SHELL_DIR}/target/previous/${NAME}
     NOW="$(cat ${SHELL_DIR}/target/previous/${NAME} | xargs)"
@@ -95,7 +95,7 @@ echo
 
 # check versions
 while read VAR; do
-    check ${VAR}
+    _check ${VAR}
 done < ${SHELL_DIR}/checklist.txt
 echo
 

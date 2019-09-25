@@ -19,7 +19,7 @@ jobs:
         uses: opspresso/action-kube@master
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-        run: |
+      - run: |
           bash ./report.sh
 
       - name: Release
