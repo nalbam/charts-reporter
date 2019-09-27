@@ -77,7 +77,7 @@ _check() {
         --footer_icon="https://repo.opspresso.com/favicon/helm-152.png" \
         --color="good" \
         --title="helm-chart updated" \
-        "\`${CHART}\` ${NOW} > ${NEW}"
+        "\`${CHART}\`\n ${NOW} > ${NEW}"
 
     echo " slack ${CHART} ${NOW} > ${NEW} "
     echo
