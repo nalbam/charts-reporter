@@ -14,8 +14,11 @@ mkdir -p ${SHELL_DIR}/target/previous
 mkdir -p ${SHELL_DIR}/target/versions
 mkdir -p ${SHELL_DIR}/target/release
 
-_helm_repo() {
-    REPO=$1
+_check_repo() {
+    CHART="$1"
+
+    REPO="$(echo $CHART | cut -d'/' -f1)"
+    NAME="$(echo $CHART | cut -d'/' -f2)"
 
     if [ "${REPO}" == "incubator" ]; then
         REPO_URL="https://storage.googleapis.com/kubernetes-charts-incubator"
@@ -34,22 +37,19 @@ _helm_repo() {
     fi
 
     if [ "${REPO_URL}" != "" ]; then
-        COUNT=$(helm repo list | grep -v NAME | awk '{print $1}' | grep "${REPO}" | wc -l | xargs)
+        COUNT=$(helm repo list | awk '{print $1}' | grep "${REPO}" | wc -l | xargs)
 
         if [ "x${COUNT}" == "x0" ]; then
             helm repo add ${REPO} ${REPO_URL}
-            helm repo update
         fi
     fi
 }
 
-_check() {
+_check_version() {
     CHART="$1"
 
     REPO="$(echo $CHART | cut -d'/' -f1)"
     NAME="$(echo $CHART | cut -d'/' -f2)"
-
-    _helm_repo "${REPO}"
 
     touch ${SHELL_DIR}/target/previous/${NAME}
     NOW="$(cat ${SHELL_DIR}/target/previous/${NAME} | xargs)"
@@ -97,9 +97,18 @@ fi
 helm init --client-only
 echo
 
+# check repo
+while read VAR; do
+    _check_repo ${VAR}
+done < ${SHELL_DIR}/checklist.txt
+echo
+
+# repo update
+helm repo update
+
 # check versions
 while read VAR; do
-    _check ${VAR}
+    _check_version ${VAR}
 done < ${SHELL_DIR}/checklist.txt
 echo
 
