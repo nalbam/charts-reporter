@@ -23,8 +23,12 @@ _helm_repo() {
         REPO_URL="https://argoproj.github.io/argo-helm"
     elif [ "${REPO}" == "jetstack" ]; then
         REPO_URL="https://charts.jetstack.io"
+    elif [ "${REPO}" == "harbor" ]; then
+        REPO_URL="https://helm.goharbor.io"
     elif [ "${REPO}" == "monocular" ]; then
         REPO_URL="https://helm.github.io/monocular"
+    elif [ "${REPO}" == "gitlab" ]; then
+        REPO_URL="https://charts.gitlab.io"
     else
         REPO_URL=""
     fi

@@ -1,5 +1,7 @@
 argo/argo
 argo/argo-cd
+gitlab/gitlab
+harbor/harbor
 incubator/vault
 jetstack/cert-manager
 monocular/monocular
