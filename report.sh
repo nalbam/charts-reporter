@@ -59,7 +59,7 @@ _check_version() {
     # echo "cat ${TMP} | grep \"${CHART} \""
     # cat ${TMP} | grep "${CHART} "
 
-    NEW="$(cat ${TMP} | grep "${CHART} " | head -1 | awk '{print $2}' | xargs)"
+    NEW="$(cat ${TMP} | grep "${CHART} " | head -1 | awk '{print $2" ("$3")"}' | xargs)"
 
     printf '# %-40s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
 
@@ -112,7 +112,7 @@ echo
 helm repo update
 echo
 
-helm search | awk '{print $1" "$2" ("$3")"}' > ${TMP}
+helm search | awk '{print $1" "$2" "$3}' > ${TMP}
 
 # check versions
 while read VAR; do
