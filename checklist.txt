@@ -20,6 +20,7 @@ stable/kube-state-metrics
 stable/kube2iam
 stable/metrics-server
 stable/nginx-ingress
+stable/postgresql
 stable/prometheus
 stable/redis
 stable/sonarqube
