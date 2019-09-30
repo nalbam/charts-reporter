@@ -54,7 +54,7 @@ _check() {
     touch ${SHELL_DIR}/target/previous/${NAME}
     NOW="$(cat ${SHELL_DIR}/target/previous/${NAME} | xargs)"
 
-    NEW="$(helm search "${CHART}" | grep "${CHART}" | head -1 | awk '{print $2" ("$3")"}' | xargs)"
+    NEW="$(helm search "${CHART}" | grep "${CHART} " | head -1 | awk '{print $2" ("$3")"}' | xargs)"
 
     printf '# %-40s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
 

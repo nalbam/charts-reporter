@@ -13,6 +13,7 @@ stable/consul
 stable/docker-registry
 stable/efs-provisioner
 stable/external-dns
+stable/fluentd-elasticsearch
 stable/grafana
 stable/jenkins
 stable/k8s-spot-termination-handler
@@ -22,6 +23,8 @@ stable/metrics-server
 stable/nginx-ingress
 stable/postgresql
 stable/prometheus
+stable/prometheus-adapter
+stable/prometheus-operator
 stable/redis
 stable/sonarqube
 stable/sonatype-nexus
