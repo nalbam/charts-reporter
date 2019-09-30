@@ -56,9 +56,6 @@ _check_version() {
     touch ${SHELL_DIR}/target/previous/${NAME}
     NOW="$(cat ${SHELL_DIR}/target/previous/${NAME} | xargs)"
 
-    # echo "cat ${TMP} | grep \"${CHART} \""
-    # cat ${TMP} | grep "${CHART} "
-
     NEW="$(cat ${TMP} | grep "${CHART} " | head -1 | awk '{print $2" ("$3")"}' | xargs)"
 
     printf '# %-40s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
