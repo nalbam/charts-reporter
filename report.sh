@@ -14,6 +14,8 @@ mkdir -p ${SHELL_DIR}/target/previous
 mkdir -p ${SHELL_DIR}/target/versions
 mkdir -p ${SHELL_DIR}/target/release
 
+TMP=/tmp/charts
+
 _check_repo() {
     CHART="$1"
 
@@ -54,10 +56,10 @@ _check_version() {
     touch ${SHELL_DIR}/target/previous/${NAME}
     NOW="$(cat ${SHELL_DIR}/target/previous/${NAME} | xargs)"
 
-    echo "helm search \"${CHART}\" | grep \"${NAME} \""
-    helm search "${CHART}" | grep "${NAME} "
+    echo "cat ${TMP} | grep \"${CHART} \""
+    cat ${TMP} | grep "${CHART} "
 
-    NEW="$(helm search "${CHART}" | grep "${NAME} " | head -1 | awk '{print $2" ("$3")"}' | xargs)"
+    NEW="$(cat ${TMP} | grep "${CHART} " | head -1 | awk '{print $2}' | xargs)"
 
     printf '# %-40s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
 
@@ -109,6 +111,8 @@ echo
 # repo update
 helm repo update
 echo
+
+helm search | awk '{print $1" "$2" ("$3")"}' > ${TMP}
 
 # check versions
 while read VAR; do
