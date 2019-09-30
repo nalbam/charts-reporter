@@ -54,6 +54,7 @@ _check_version() {
     touch ${SHELL_DIR}/target/previous/${NAME}
     NOW="$(cat ${SHELL_DIR}/target/previous/${NAME} | xargs)"
 
+    helm search "${CHART}" | grep "${NAME} "
     NEW="$(helm search "${CHART}" | grep "${NAME} " | head -1 | awk '{print $2" ("$3")"}' | xargs)"
 
     printf '# %-40s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
@@ -105,6 +106,7 @@ echo
 
 # repo update
 helm repo update
+echo
 
 # check versions
 while read VAR; do
