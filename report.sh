@@ -65,7 +65,6 @@ if [ ! -z "${VERSION}" ]; then
 fi
 
 helm version
-helm init
 
 helm search hub -o json > ${TMP}
 
