@@ -64,6 +64,9 @@ if [ ! -z "${VERSION}" ]; then
     curl -sL https://github.com/${REPOSITORY}/releases/download/${VERSION}/versions.tar.gz | tar xz -C ${SHELL_DIR}/target/previous
 fi
 
+helm version
+helm init
+
 helm search hub -o json > ${TMP}
 
 printf '# %-40s %-25s %-25s\n' "NAME" "NOW" "NEW"
