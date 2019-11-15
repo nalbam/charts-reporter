@@ -66,6 +66,8 @@ fi
 
 helm search hub -o json > ${TMP}
 
+printf '# %-40s %-25s %-25s\n' "NAME" "NOW" "NEW"
+
 # check versions
 while read VAR; do
     _check_version ${VAR}
