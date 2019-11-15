@@ -8,7 +8,6 @@ stable/aws-iam-authenticator
 stable/chartmuseum
 stable/cluster-autoscaler
 stable/cluster-overprovisioner
-stable/consul
 stable/docker-registry
 stable/efs-provisioner
 stable/external-dns
@@ -20,7 +19,6 @@ stable/kube-state-metrics
 stable/kube2iam
 stable/metrics-server
 stable/nginx-ingress
-stable/postgresql
 stable/prometheus
 stable/prometheus-adapter
 stable/prometheus-operator
