@@ -4,7 +4,6 @@ gitlab/gitlab
 harbor/harbor
 incubator/vault
 jetstack/cert-manager
-monocular/monocular
 stable/aws-iam-authenticator
 stable/chartmuseum
 stable/cluster-autoscaler
