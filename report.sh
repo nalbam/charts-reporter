@@ -40,19 +40,17 @@ _check_version() {
     fi
 
     if [ "${REPO}" == "stable" ] || [ "${REPO}" == "incubator" ]; then
-        footer="<https://github.com/helm/charts/tree/master/${CHART}|${CHART}>"
+        FOOTER="<https://github.com/helm/charts/tree/master/${CHART}|${CHART}>"
     else
-        footer="${CHART}"
+        FOOTER="${CHART}"
     fi
 
+# cat <<EOF
     curl -sL opspresso.com/tools/slack | bash -s -- \
-        --token="${SLACK_TOKEN}" \
-        --username="${REPONAME}" \
-        --footer="${footer}" \
-        --footer_icon="https://repo.opspresso.com/favicon/helm-152.png" \
-        --color="good" \
-        --title="helm-chart updated" \
-        "\`${CHART}\`\n ${NOW} > ${NEW}"
+        --token="${SLACK_TOKEN}" --username="${REPONAME}" --color="good" \
+        --footer="${FOOTER}" --footer_icon="https://repo.opspresso.com/favicon/helm-152.png" \
+        --title="helm-chart updated" "\`${CHART}\`\n ${NOW} > ${NEW}"
+# EOF
 
     echo " slack ${CHART} ${NOW} > ${NEW} "
     echo
