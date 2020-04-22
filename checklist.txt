@@ -1,13 +1,16 @@
 argo/argo
 argo/argo-cd
-gitlab/gitlab
+argo/argo-rollouts
+codecentric/keycloak
 harbor/harbor
 jetstack/cert-manager
 stable/chartmuseum
 stable/cluster-autoscaler
 stable/cluster-overprovisioner
+stable/consul
 stable/docker-registry
 stable/efs-provisioner
+stable/external-dns
 stable/fluentd
 stable/grafana
 stable/jenkins
@@ -17,6 +20,7 @@ stable/kube2iam
 stable/metrics-server
 stable/nginx-ingress
 stable/prometheus
+stable/prometheus-operator
 stable/redis
 stable/sonarqube
 stable/sonatype-nexus
