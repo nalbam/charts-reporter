@@ -1,16 +1,18 @@
 argo/argo
 argo/argo-cd
 argo/argo-rollouts
+bitnami/external-dns
 codecentric/keycloak
 harbor/harbor
 jetstack/cert-manager
+oteemo/sonarqube
+oteemo/sonatype-nexus
 stable/chartmuseum
 stable/cluster-autoscaler
 stable/cluster-overprovisioner
 stable/consul
 stable/docker-registry
 stable/efs-provisioner
-stable/external-dns
 stable/fluentd
 stable/grafana
 stable/jenkins
@@ -21,7 +23,4 @@ stable/metrics-server
 stable/nginx-ingress
 stable/prometheus
 stable/prometheus-operator
-stable/redis
-stable/sonarqube
-stable/sonatype-nexus
 stable/spinnaker
