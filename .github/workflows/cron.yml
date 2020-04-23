@@ -12,8 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Report
+      - name: Uses Container
         uses: opspresso/action-kube@master
+
+      - name: Report
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
         run: |
