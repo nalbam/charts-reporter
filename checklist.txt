@@ -4,6 +4,8 @@ argo/argo-rollouts
 bitnami/external-dns
 codecentric/keycloak
 harbor/harbor
+incubator/etcd
+incubator/vault
 jetstack/cert-manager
 oteemo/sonarqube
 oteemo/sonatype-nexus
@@ -24,4 +26,3 @@ stable/nginx-ingress
 stable/prometheus
 stable/prometheus-operator
 stable/spinnaker
-incubator/vault
