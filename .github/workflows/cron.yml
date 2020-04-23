@@ -1,8 +1,8 @@
-name: Build-Cron2
+name: Build-Cron
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/10 * * * *"
 
 jobs:
   build:
