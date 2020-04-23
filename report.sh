@@ -8,13 +8,22 @@ REPOSITORY=${GITHUB_REPOSITORY:-$DEFAULT}
 USERNAME=${GITHUB_ACTOR}
 REPONAME=$(echo "${REPOSITORY}" | cut -d'/' -f2)
 
-rm -rf ${SHELL_DIR}/target
+CHARTS=${SHELL_DIR}/target/charts.txt
 
-mkdir -p ${SHELL_DIR}/target/previous
-mkdir -p ${SHELL_DIR}/target/versions
-mkdir -p ${SHELL_DIR}/target/release
+_init() {
+    rm -rf ${SHELL_DIR}/target
 
-TMP=/tmp/charts.json
+    mkdir -p ${SHELL_DIR}/target
+    mkdir -p ${SHELL_DIR}/versions
+
+    cp -rf ${SHELL_DIR}/versions ${SHELL_DIR}/target/
+}
+
+_load() {
+    helm version
+
+    helm search hub -o json | jq '.[] | "\"\(.url)\" \(.version) \(.app_version)"' -r > ${CHARTS}
+}
 
 _check_version() {
     CHART="$1"
@@ -22,14 +31,14 @@ _check_version() {
     REPO="$(echo ${CHART} | cut -d'/' -f1)"
     NAME="$(echo ${CHART} | cut -d'/' -f2)"
 
-    touch ${SHELL_DIR}/target/previous/${NAME}
-    NOW="$(cat ${SHELL_DIR}/target/previous/${NAME} | xargs)"
+    touch ${SHELL_DIR}/versions/${NAME}
+    NOW="$(cat ${SHELL_DIR}/versions/${NAME} | xargs)"
 
-    NEW="$(cat ${TMP} | CHART="https://hub.helm.sh/charts/${CHART}" jq '[.[] | select(.url==env.CHART)][0] | "\(.version) \(.app_version)"' -r | awk '{print $1" ("$2")"}')"
+    NEW="$(cat ${CHARTS} | grep "/${CHART}\"" | awk '{print $2" ("$3")"}')"
 
     printf '# %-40s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
 
-    printf "${NEW}" > ${SHELL_DIR}/target/versions/${NAME}
+    printf "${NEW}" > ${SHELL_DIR}/versions/${NAME}
 
     if [ "${NOW}" == "${NEW}" ]; then
         return
@@ -45,36 +54,30 @@ _check_version() {
         FOOTER="${CHART}"
     fi
 
-# cat <<EOF
     curl -sL opspresso.com/tools/slack | bash -s -- \
         --token="${SLACK_TOKEN}" --username="${REPONAME}" --color="good" \
         --footer="${FOOTER}" --footer_icon="https://repo.opspresso.com/favicon/helm-152.png" \
         --title="helm-chart updated" "\`${CHART}\`\n ${NOW} > ${NEW}"
-# EOF
 
     echo " slack ${CHART} ${NOW} > ${NEW} "
     echo
 }
 
-# previous versions
-VERSION=$(curl -s https://api.github.com/repos/${REPOSITORY}/releases/latest | grep tag_name | cut -d'"' -f4 | xargs)
-if [ ! -z "${VERSION}" ]; then
-    curl -sL https://github.com/${REPOSITORY}/releases/download/${VERSION}/versions.tar.gz | tar xz -C ${SHELL_DIR}/target/previous
-fi
+_run() {
+    _init
 
-helm version
+    _load
 
-helm search hub -o json > ${TMP}
+    printf '# %-40s %-25s %-25s\n' "NAME" "NOW" "NEW"
 
-printf '# %-40s %-25s %-25s\n' "NAME" "NOW" "NEW"
+    # check versions
+    while read VAR; do
+        _check_version ${VAR}
+    done < ${SHELL_DIR}/checklist.txt
+    echo
 
-# check versions
-while read VAR; do
-    _check_version ${VAR}
-done < ${SHELL_DIR}/checklist.txt
-echo
+    # commit message
+    printf "$(date +%Y%m%d-%H%M)" > ${SHELL_DIR}/target/commit_message.txt
+}
 
-# package versions
-pushd ${SHELL_DIR}/target/versions
-tar -czf ../release/versions.tar.gz *
-popd
+_run

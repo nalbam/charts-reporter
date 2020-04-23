@@ -14,19 +14,17 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Uses Container
-        uses: opspresso/action-kube@master
-
       - name: Report
+        uses: opspresso/action-kube@master
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
         run: |
           bash ./report.sh
 
-      - name: Release
+      - name: Commit & Push
         uses: opspresso/action-builder@master
         with:
-          args: --release
+          args: --commit
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ASSET_PATH: ./target/release
+          MESSAGE_PATH: ./target/commit_message.txt
