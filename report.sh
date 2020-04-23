@@ -34,7 +34,7 @@ _check_version() {
     touch ${SHELL_DIR}/versions/${NAME}
     NOW="$(cat ${SHELL_DIR}/versions/${NAME} | xargs)"
 
-    NEW="$(cat ${CHARTS} | grep "/${CHART}\"" | awk '{print $2" ("$3")"}')"
+    NEW="$(cat ${CHARTS} | grep "/${CHART}\"" | awk '{print $2" ("$3")"}' | xargs)"
 
     printf '# %-40s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
 
