@@ -55,8 +55,7 @@ _check_version() {
     fi
 
     curl -sL opspresso.com/tools/slack | bash -s -- \
-        --token="${SLACK_TOKEN}" --username="${REPONAME}" \
-        --color="good" --emoji="https://repo.opspresso.com/favicon/helm-152.png" \
+        --token="${SLACK_TOKEN}" --username="${REPONAME}" --color="good" \
         --footer="${FOOTER}" --footer_icon="https://repo.opspresso.com/favicon/helm-152.png" \
         --title="helm-chart updated" "\`${CHART}\`\n ${NOW} > ${NEW}"
 
