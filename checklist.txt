@@ -3,6 +3,7 @@ argo/argo-cd
 argo/argo-rollouts
 bitnami/external-dns
 codecentric/keycloak
+gabibbo97/keycloak-gatekeeper
 harbor/harbor
 incubator/etcd
 incubator/vault
@@ -13,6 +14,7 @@ stable/chartmuseum
 stable/cluster-autoscaler
 stable/cluster-overprovisioner
 stable/consul
+stable/datadog
 stable/docker-registry
 stable/efs-provisioner
 stable/fluentd
