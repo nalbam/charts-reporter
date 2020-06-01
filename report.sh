@@ -20,7 +20,7 @@ _init() {
 }
 
 _load() {
-    helm version
+    helm version --client --short
 
     helm search hub -o json | jq '.[] | "\"\(.url)\" \(.version) \(.app_version)"' -r > ${CHARTS}
 }
