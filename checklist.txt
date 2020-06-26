@@ -1,13 +1,13 @@
 argo/argo
 argo/argo-cd
+argo/argo-events
 argo/argo-rollouts
 bitnami/external-dns
 codecentric/keycloak
 gabibbo97/keycloak-gatekeeper
 harbor/harbor
-incubator/etcd
-incubator/vault
 jetstack/cert-manager
+kiwigrid/fluentd-elasticsearch
 oteemo/sonarqube
 oteemo/sonatype-nexus
 stable/chartmuseum
@@ -26,5 +26,7 @@ stable/kube2iam
 stable/metrics-server
 stable/nginx-ingress
 stable/prometheus
+stable/prometheus-adapter
 stable/prometheus-operator
 stable/spinnaker
+stable/weave-scope
