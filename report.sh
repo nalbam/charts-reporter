@@ -32,7 +32,7 @@ _load() {
 }
 
 _check() {
-    printf '# %-40s %-25s %-25s\n' "NAME" "NOW" "NEW"
+    printf '# %-50s %-20s %-20s\n' "NAME" "NOW" "NEW"
 
     # check versions
     while read VAR; do
@@ -52,7 +52,7 @@ _get_version() {
 
     NEW="$(cat ${CHARTS} | grep "\"${CHART}\"" | awk '{print $2" ("$3")"}' | xargs)"
 
-    printf '# %-50s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
+    printf '# %-50s %-20s %-20s\n' "${CHART}" "${NOW}" "${NEW}"
 
     printf "${NEW}" > ${SHELL_DIR}/versions/${NAME}
 
