@@ -10,7 +10,7 @@ datadog/datadog
 deliveryhero/cluster-overprovisioner
 eks/aws-load-balancer-controller
 external-secrets/kubernetes-external-secrets
-fluxcd/fluxcd
+fluxcd/flux
 gocd/gocd
 grafana/grafana
 grafana/loki
