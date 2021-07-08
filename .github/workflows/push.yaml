@@ -1,0 +1,31 @@
+name: Build-Push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Uses Container
+        uses: opspresso/action-kube@master
+
+      - name: Report
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+        run: |
+          bash ./report.sh
+
+      - name: Commit & Push
+        uses: opspresso/action-builder@master
+        with:
+          args: --commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE_PATH: ./target/commit_message.txt
