@@ -2,13 +2,13 @@ argo/argo
 argo/argo-cd
 argo/argo-rollouts
 argo/argocd-notifications
+autoscaler/cluster-autoscaler
 aws-ebs-csi-driver/aws-ebs-csi-driver
 aws-efs-csi-driver/aws-efs-csi-driver
-aws/aws-load-balancer-controller
-bitnami/external-dns
-cluster-autoscaler/cluster-autoscaler
+dashboard/kubernetes-dashboard
 datadog/datadog
 deliveryhero/cluster-overprovisioner
+eks/aws-load-balancer-controller
 external-secrets/kubernetes-external-secrets
 grafana/grafana
 grafana/loki
@@ -16,8 +16,7 @@ grafana/promtail
 harbor/harbor
 ingress-nginx/ingress-nginx
 jetstack/cert-manager
-k8s-dashboard/kubernetes-dashboard
-prometheus-community/kube-prometheus-stack
-prometheus-community/prometheus-adapter
+prometheus/kube-prometheus-stack
+prometheus/prometheus-adapter
 stable/efs-provisioner
 stable/metrics-server
