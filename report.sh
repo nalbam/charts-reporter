@@ -22,10 +22,26 @@ _init() {
 _load() {
     helm version --client --short
 
-    helm search hub -o json | jq '.[] | "\"\(.url)\" \(.version) \(.app_version)"' -r > ${CHARTS}
+    # add repos
+    while read VAR; do
+        helm repo add ${VAR}
+    done < ${SHELL_DIR}/repos.txt
+    echo
+
+    helm search repo -o json | jq '.[] | "\"\(.name)\" \(.version) \(.app_version)"' -r > ${CHARTS}
 }
 
-_check_version() {
+_check() {
+    printf '# %-40s %-25s %-25s\n' "NAME" "NOW" "NEW"
+
+    # check versions
+    while read VAR; do
+        _get_version ${VAR}
+    done < ${SHELL_DIR}/checklist.txt
+    echo
+}
+
+_get_version() {
     CHART="$1"
 
     REPO="$(echo ${CHART} | cut -d'/' -f1)"
@@ -34,9 +50,9 @@ _check_version() {
     touch ${SHELL_DIR}/versions/${NAME}
     NOW="$(cat ${SHELL_DIR}/versions/${NAME} | xargs)"
 
-    NEW="$(cat ${CHARTS} | grep "/${CHART}\"" | awk '{print $2" ("$3")"}' | xargs)"
+    NEW="$(cat ${CHARTS} | grep "\"${CHART}\"" | awk '{print $2" ("$3")"}' | xargs)"
 
-    printf '# %-40s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
+    printf '# %-50s %-25s %-25s\n' "${CHART}" "${NOW}" "${NEW}"
 
     printf "${NEW}" > ${SHELL_DIR}/versions/${NAME}
 
@@ -48,19 +64,18 @@ _check_version() {
         return
     fi
 
-    if [ "${REPO}" == "stable" ] || [ "${REPO}" == "incubator" ]; then
-        FOOTER="<https://github.com/helm/charts/tree/master/${CHART}|${CHART}>"
-    else
-        FOOTER="${CHART}"
-    fi
-
     curl -sL opspresso.github.io/tools/slack.sh | bash -s -- \
         --token="${SLACK_TOKEN}" --username="${REPONAME}" --color="good" \
-        --footer="${FOOTER}" --footer_icon="https://opspresso.github.io/tools/favicon/helm.png" \
+        --emoji="https://opspresso.github.io/tools/favicon/helm.png" \
         --title="helm-chart updated" "\`${CHART}\`\n ${NOW} > ${NEW}"
 
     echo " slack ${CHART} ${NOW} > ${NEW} "
     echo
+}
+
+_message() {
+    # commit message
+    printf "$(date +%Y%m%d-%H%M)" > ${SHELL_DIR}/target/commit_message.txt
 }
 
 _run() {
@@ -68,16 +83,9 @@ _run() {
 
     _load
 
-    printf '# %-40s %-25s %-25s\n' "NAME" "NOW" "NEW"
+    _check
 
-    # check versions
-    while read VAR; do
-        _check_version ${VAR}
-    done < ${SHELL_DIR}/checklist.txt
-    echo
-
-    # commit message
-    printf "$(date +%Y%m%d-%H%M)" > ${SHELL_DIR}/target/commit_message.txt
+    _message
 }
 
 _run

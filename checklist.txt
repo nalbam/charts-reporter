@@ -2,6 +2,8 @@ argo/argo
 argo/argo-cd
 argo/argo-rollouts
 argo/argocd-notifications
+aws-ebs-csi-driver/aws-ebs-csi-driver
+aws-efs-csi-driver/aws-efs-csi-driver
 aws/aws-load-balancer-controller
 bitnami/external-dns
 cluster-autoscaler/cluster-autoscaler
