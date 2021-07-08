@@ -10,6 +10,8 @@ datadog/datadog
 deliveryhero/cluster-overprovisioner
 eks/aws-load-balancer-controller
 external-secrets/kubernetes-external-secrets
+fluxcd/fluxcd
+gocd/gocd
 grafana/grafana
 grafana/loki
 grafana/promtail
@@ -18,5 +20,3 @@ ingress-nginx/ingress-nginx
 jetstack/cert-manager
 prometheus/kube-prometheus-stack
 prometheus/prometheus-adapter
-stable/efs-provisioner
-stable/metrics-server
