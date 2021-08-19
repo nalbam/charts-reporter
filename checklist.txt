@@ -5,6 +5,8 @@ argo/argocd-notifications
 autoscaler/cluster-autoscaler
 aws-ebs-csi-driver/aws-ebs-csi-driver
 aws-efs-csi-driver/aws-efs-csi-driver
+bitnami/external-dns
+cortex/cortex
 dashboard/kubernetes-dashboard
 datadog/datadog
 deliveryhero/cluster-overprovisioner
