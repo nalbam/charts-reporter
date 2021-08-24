@@ -10,6 +10,7 @@ cortex/cortex
 dashboard/kubernetes-dashboard
 datadog/datadog
 deliveryhero/cluster-overprovisioner
+devtron/devtron-operator
 eks/aws-load-balancer-controller
 external-secrets/kubernetes-external-secrets
 fluxcd/flux
