@@ -1,13 +1,16 @@
-argo/argo
 argo/argo-cd
 argo/argo-rollouts
+argo/argo-workflows
+argo/argocd-applicationset
 argo/argocd-notifications
 autoscaler/cluster-autoscaler
 aws-ebs-csi-driver/aws-ebs-csi-driver
 aws-efs-csi-driver/aws-efs-csi-driver
+aws/aws-node-termination-handler
 bitnami/external-dns
 codecentric/keycloak
 cortex/cortex
+crossplane/crossplane
 dashboard/kubernetes-dashboard
 datadog/datadog
 deliveryhero/cluster-overprovisioner
@@ -21,6 +24,8 @@ grafana/loki
 grafana/promtail
 harbor/harbor
 ingress-nginx/ingress-nginx
+jaegertracing/jaeger-operator
 jetstack/cert-manager
+linkerd2/linkerd2
 prometheus/kube-prometheus-stack
 prometheus/prometheus-adapter
