@@ -20,7 +20,7 @@ external-secrets/kubernetes-external-secrets
 fluxcd/flux
 gocd/gocd
 grafana/grafana
-grafana/loki
+grafana/loki-stack
 grafana/promtail
 harbor/harbor
 ingress-nginx/ingress-nginx
