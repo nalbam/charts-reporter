@@ -67,7 +67,7 @@ _get_version() {
 
     curl -sL opspresso.github.io/tools/slack.sh | bash -s -- \
         --token="${SLACK_TOKEN}" --emoji="helm" --color="good" --username="${REPONAME}" \
-        --footer "<${CHART_URL}|${CHART}>" \
+        --footer="<${CHART_URL}|${CHART}>" \
         --title="helm-chart updated" \
         "\`${CHART}\`\n ${NOW} > ${NEW}"
 
