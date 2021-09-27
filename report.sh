@@ -43,6 +43,7 @@ _check() {
 
 _get_version() {
     CHART="$1"
+    CHART_URL="$2"
 
     REPO="$(echo ${CHART} | cut -d'/' -f1)"
     NAME="$(echo ${CHART} | cut -d'/' -f2)"
@@ -65,9 +66,10 @@ _get_version() {
     fi
 
     curl -sL opspresso.github.io/tools/slack.sh | bash -s -- \
-        --token="${SLACK_TOKEN}" --username="${REPONAME}" --color="good" \
-        --emoji="helm" \
-        --title="helm-chart updated" "\`${CHART}\`\n ${NOW} > ${NEW}"
+        --token="${SLACK_TOKEN}" --emoji="helm" --color="good" --username="${REPONAME}" \
+        --footer "<${CHART_URL}|${CHART}>" \
+        --title="helm-chart updated" \
+        "\`${CHART}\`\n ${NOW} > ${NEW}"
 
     echo " slack ${CHART} ${NOW} > ${NEW} "
     echo
