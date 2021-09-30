@@ -16,6 +16,7 @@ devtron/devtron-operator https://github.com/devtron-labs/charts/blob/main/charts
 eks/aws-load-balancer-controller https://github.com/aws/eks-charts/blob/master/stable/aws-load-balancer-controller/Chart.yaml
 external-dns/external-dns https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/Chart.yaml
 external-secrets/kubernetes-external-secrets https://github.com/external-secrets/kubernetes-external-secrets/blob/master/charts/kubernetes-external-secrets/Chart.yaml
+flagger/flagger https://github.com/fluxcd/flagger/blob/main/charts/flagger/Chart.yaml
 fluxcd/flux https://github.com/fluxcd/flux/blob/master/chart/flux/Chart.yaml
 gocd/gocd https://github.com/gocd/helm-chart/blob/master/gocd/Chart.yaml
 grafana/grafana https://github.com/grafana/helm-charts/blob/main/charts/grafana/Chart.yaml
