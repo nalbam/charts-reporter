@@ -6,7 +6,6 @@ argo/argocd-notifications https://github.com/argoproj/argo-helm/blob/master/char
 autoscaler/cluster-autoscaler https://github.com/kubernetes/autoscaler/blob/master/charts/cluster-autoscaler/Chart.yaml
 aws-ebs-csi-driver/aws-ebs-csi-driver https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/charts/aws-ebs-csi-driver/Chart.yaml
 aws-efs-csi-driver/aws-efs-csi-driver https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/charts/aws-efs-csi-driver/Chart.yaml
-aws/aws-node-termination-handler https://github.com/aws/aws-node-termination-handler/blob/main/config/helm/aws-node-termination-handler/Chart.yaml
 cortex/cortex https://github.com/cortexproject/cortex-helm-chart/blob/master/Chart.yaml
 crossplane/crossplane https://github.com/crossplane/crossplane/blob/master/cluster/charts/crossplane/Chart.yaml
 dashboard/kubernetes-dashboard https://github.com/kubernetes/dashboard/blob/master/aio/deploy/helm-chart/kubernetes-dashboard/Chart.yaml
