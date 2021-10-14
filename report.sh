@@ -23,8 +23,8 @@ _load() {
     helm version --client --short
 
     # add repos
-    while read VAR; do
-        helm repo add ${VAR}
+    while read LINE; do
+        helm repo add ${LINE}
     done < ${SHELL_DIR}/repos.txt
     echo
 
@@ -35,8 +35,8 @@ _check() {
     printf '# %-50s %-20s %-20s\n' "NAME" "NOW" "NEW"
 
     # check versions
-    while read VAR; do
-        _get_version ${VAR}
+    while read LINE; do
+        _get_version ${LINE}
     done < ${SHELL_DIR}/checklist.txt
     echo
 }
