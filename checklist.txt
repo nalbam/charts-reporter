@@ -7,7 +7,6 @@ autoscaler/cluster-autoscaler https://github.com/kubernetes/autoscaler/blob/mast
 aws-ebs-csi-driver/aws-ebs-csi-driver https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/charts/aws-ebs-csi-driver/Chart.yaml
 aws-efs-csi-driver/aws-efs-csi-driver https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/charts/aws-efs-csi-driver/Chart.yaml
 cortex/cortex https://github.com/cortexproject/cortex-helm-chart/blob/master/Chart.yaml
-crossplane/crossplane https://github.com/crossplane/crossplane/blob/master/cluster/charts/crossplane/Chart.yaml
 dashboard/kubernetes-dashboard https://github.com/kubernetes/dashboard/blob/master/aio/deploy/helm-chart/kubernetes-dashboard/Chart.yaml
 datadog/datadog https://github.com/DataDog/helm-charts/blob/main/charts/datadog/Chart.yaml
 deliveryhero/cluster-overprovisioner https://github.com/deliveryhero/helm-charts/blob/master/stable/cluster-overprovisioner/Chart.yaml
