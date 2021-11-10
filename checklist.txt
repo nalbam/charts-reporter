@@ -19,7 +19,7 @@ flagger/flagger https://github.com/fluxcd/flagger/blob/main/charts/flagger/Chart
 fluxcd/flux https://github.com/fluxcd/flux/blob/master/chart/flux/Chart.yaml
 gocd/gocd https://github.com/gocd/helm-chart/blob/master/gocd/Chart.yaml
 grafana/grafana https://github.com/grafana/helm-charts/blob/main/charts/grafana/Chart.yaml
-grafana/loki-stack https://github.com/grafana/helm-charts/blob/main/charts/loki-stack/Chart.yaml
+grafana/loki https://github.com/grafana/helm-charts/blob/main/charts/loki/Chart.yaml
 grafana/promtail https://github.com/grafana/helm-charts/blob/main/charts/promtail/Chart.yaml
 ingress-nginx/ingress-nginx https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/Chart.yaml
 jaegertracing/jaeger-operator https://github.com/jaegertracing/helm-charts/blob/main/charts/jaeger-operator/Chart.yaml
