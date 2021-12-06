@@ -24,6 +24,7 @@ grafana/promtail https://github.com/grafana/helm-charts/blob/main/charts/promtai
 ingress-nginx/ingress-nginx https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/Chart.yaml
 jaegertracing/jaeger-operator https://github.com/jaegertracing/helm-charts/blob/main/charts/jaeger-operator/Chart.yaml
 jetstack/cert-manager https://github.com/jetstack/cert-manager/blob/master/deploy/charts/cert-manager/Chart.template.yaml
+karpenter/karpenter https://github.com/aws/karpenter/blob/main/charts/karpenter/Chart.yaml
 opspresso/app https://github.com/opspresso/helm-charts/blob/master/charts/app/Chart.yaml
 prometheus/kube-prometheus-stack https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/Chart.yaml
 prometheus/prometheus-adapter https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-adapter/Chart.yaml
