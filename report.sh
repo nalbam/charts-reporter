@@ -5,8 +5,8 @@ SHELL_DIR=$(dirname $0)
 DEFAULT="nalbam/charts-reporter"
 REPOSITORY=${GITHUB_REPOSITORY:-$DEFAULT}
 
-USERNAME=${GITHUB_ACTOR}
-REPONAME=$(echo "${REPOSITORY}" | cut -d'/' -f2)
+GIT_USERNAME="nalbam-bot"
+GIT_USEREMAIL="bot@nalbam.com"
 
 CHARTS=${SHELL_DIR}/target/charts.txt
 
@@ -66,7 +66,7 @@ _get_version() {
   fi
 
   curl -sL opspresso.github.io/tools/slack.sh | bash -s -- \
-    --token="${SLACK_TOKEN}" --emoji="helm" --color="good" --username="${NAME} ${REPONAME}" \
+    --token="${SLACK_TOKEN}" --emoji="helm" --color="good" --username="${NAME}" \
     --footer="<${CHART_URL}|${CHART}>" \
     --title="helm-chart updated" \
     "\`${CHART}\`\n ${NOW} > ${NEW}"
@@ -75,9 +75,24 @@ _get_version() {
   echo
 }
 
-_message() {
-  # commit message
-  printf "$(date +%Y%m%d-%H%M)" >${SHELL_DIR}/target/commit_message.txt
+_commit() {
+  if [ -z "${GITHUB_TOKEN}" ]; then
+    return
+  fi
+  if [ -z "${GITHUB_PUSH}" ]; then
+    return
+  fi
+
+  echo
+  echo "Pushing to GitHub..."
+
+  git config --global user.name "${GIT_USERNAME}"
+  git config --global user.email "${GIT_USEREMAIL}"
+
+  git add .
+  git commit -m "report $(date +%Y%m%d-%H%M)"
+
+  git push -q https://${GITHUB_TOKEN}@github.com/${REPOSITORY}.git main
 }
 
 _run() {
@@ -87,7 +102,7 @@ _run() {
 
   _check
 
-  _message
+  _commit
 }
 
 _run
